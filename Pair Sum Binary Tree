@@ -1,0 +1,118 @@
+import java.util.*;
+public class Solution {
+
+	public static void pairSum(BinaryTreeNode<Integer> root, int sum) {
+
+// 		/* Your class should be named Solution
+// 		 * Don't write main().
+// 		 * Don't read input, it is passed as function argument.
+// 		 * Return output and don't print it.
+// 	 	 * Taking input and printing output is handled automatically.
+//         */
+        
+    
+     
+//         ArrayList<Integer> list=new ArrayList<>();
+//         convert(root,list);
+//         if(list==null ){
+//             return;
+//         }
+//         Collections.sort(list);
+//         int i=0;
+//         int j=list.size()-1;
+        
+//         while(i<j){
+//         if(list.get(i)+list.get(j)==sum){
+//             if(list.get(i)<list.get(j)){
+//                 System.out.println(list.get(i)+" "+list.get(j));
+                
+//             }else{
+//                 System.out.println(list.get(j)+" "+list.get(i));
+//             }
+//             i++;j--;
+//         }else if(list.get(i)+list.get(j)<sum){
+//             i++;
+//         }else{
+//             j--;
+//         }
+//         }
+//     }
+    
+//     public static void convert(BinaryTreeNode<Integer> root,ArrayList<Integer> list){
+//         if(root==null)
+//             return;
+//         list.add(root.data);
+//         convert(root.left,list);
+//         convert(root.right,list);
+        
+//     }
+    
+    // public static ArrayList<Integer> sort(BinaryTreeNode<Integer> root){
+    //     if(root==null){
+    //         Collections.sort(list);
+    //         return list;
+    //     }
+    //     ArrayList<Integer> list=new ArrayList<Integer>();
+    //     list.add(root.data);
+    //     list.add(sort(root.left));
+    //     list.add(sort(root.right));
+    // }
+        
+        
+        
+        
+        
+        printPairs(root,root,sum);
+    }
+    
+    public static void printPairs(BinaryTreeNode<Integer> currNode,BinaryTreeNode<Integer> root,int sum){
+
+        if(currNode==null){
+            return;
+        }
+        if(currNode.data<sum){
+            
+        if(currNode.data!=Integer.MIN_VALUE){
+            int diff=sum-currNode.data;
+            boolean ans=find(root,diff,currNode);
+            if(ans){
+                if(currNode.data<diff){
+                    System.out.println(currNode.data+" "+diff);
+                }else{
+                    System.out.println(diff+" "+currNode.data);
+                }
+                currNode.data=Integer.MIN_VALUE;
+                
+               
+            }
+            
+        
+            
+        }
+        }
+        
+            printPairs(currNode.left,root,sum);
+            printPairs(currNode.right,root,sum);
+        
+    }
+    
+    public static boolean find(BinaryTreeNode<Integer> root,int n,BinaryTreeNode<Integer> currNode){
+        if(root==null){
+            return false;
+        }
+        if(root.data==n && root!=currNode){
+            root.data=Integer.MIN_VALUE;
+            return true;
+        }
+        
+        boolean ans=false;
+        ans=find(root.left,n,currNode);  
+        if(ans){
+            return ans;
+        }
+        ans=find(root.right,n,currNode);
+        return ans;
+                 
+    } 
+
+}
