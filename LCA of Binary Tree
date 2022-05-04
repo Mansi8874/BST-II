@@ -1,0 +1,42 @@
+public class Solution {
+
+	static int getLCA(BinaryTreeNode<Integer> root, int a, int b) {
+
+		/* Your class should be named Solution
+		 * Don't write main().
+		 * Don't read input, it is passed as function argument.
+		 * Return output and don't print it.
+	 	 * Taking input and printing output is handled automatically.
+        */
+        root=helper(root,a,b);
+        if(root==null){
+            return -1;
+        }
+        return root.data;
+        
+	}
+    public static BinaryTreeNode<Integer> helper(BinaryTreeNode<Integer> root,int a,int b){
+        if(root==null){
+            return null;
+        }
+        if(root.data==a || root.data==b){
+            return root;
+        }
+        BinaryTreeNode<Integer> leftLCA=helper(root.left,a,b);
+        BinaryTreeNode<Integer> rightLCA=helper(root.right,a,b);
+        if(leftLCA==null && rightLCA!=null){
+            return rightLCA;
+        }
+        if(rightLCA==null && leftLCA!=null){
+            return leftLCA;
+        }
+        if(leftLCA==null && rightLCA==null){
+            return null;
+        }
+        if(leftLCA!=null && rightLCA!=null){
+            return root;
+        }
+        return root;
+    }
+
+}
